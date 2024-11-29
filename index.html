@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản Lý Sinh Viên</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Quản Lý Sinh Viên</h1>
+  </header>
+  <main>
+    <section id="add-student">
+      <h2>Thêm Sinh Viên</h2>
+      <form id="student-form">
+        <label>
+          MSSV:
+          <input type="text" id="mssv" placeholder="Nhập MSSV" required>
+        </label>
+        <label>
+          Họ và Tên:
+          <input type="text" id="hoTen" placeholder="Nhập Họ và Tên" required>
+        </label>
+        <label>
+          CPA:
+          <input type="number" id="cpa" step="0.1" min="0" max="4" placeholder="Nhập CPA" required>
+        </label>
+        <button type="submit">Thêm</button>
+      </form>
+    </section>
+
+    <section id="student-list">
+      <h2>Danh Sách Sinh Viên</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>MSSV</th>
+            <th>Họ và Tên</th>
+            <th>CPA</th>
+            <th>Cảnh Cáo</th>
+            <th>Hành Động</th>
+          </tr>
+        </thead>
+        <tbody id="student-table">
+          <!-- Dữ liệu sẽ được thêm vào đây -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

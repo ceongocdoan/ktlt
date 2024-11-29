@@ -1,0 +1,122 @@
+[
+  {
+    "mssv": "20230106",
+    "hoTen": "Hoang Van F",
+    "cpa": 3.5,
+    "canhCao": 0
+  },
+  {
+    "mssv": "20230107",
+    "hoTen": "Nguyen Thi G",
+    "cpa": 2.1,
+    "canhCao": 0
+  },
+  {
+    "mssv": "20230108",
+    "hoTen": "Tran Van H",
+    "cpa": 3.8,
+    "canhCao": 0
+  },
+  {
+    "mssv": "20230109",
+    "hoTen": "Le Thi I",
+    "cpa": 0.6,
+    "canhCao": 2
+  },
+  {
+    "mssv": "20230110",
+    "hoTen": "Pham Van J",
+    "cpa": 3,
+    "canhCao": 0
+  },
+  {
+    "mssv": "20230111",
+    "hoTen": "Vu Thi K",
+    "cpa": 2.4,
+    "canhCao": 0
+  },
+  {
+    "mssv": "20230112",
+    "hoTen": "Ho Van L",
+    "cpa": 0.9,
+    "canhCao": 2
+  },
+  {
+    "mssv": "20230113",
+    "hoTen": "Nguyen Van M",
+    "cpa": 1.4,
+    "canhCao": 1
+  },
+  {
+    "mssv": "20230114",
+    "hoTen": "Tran Thi N",
+    "cpa": 2.9,
+    "canhCao": 0
+  },
+  {
+    "mssv": "20230115",
+    "hoTen": "Le Van O",
+    "cpa": 0.3,
+    "canhCao": 3
+  },
+  {
+    "mssv": "20230116",
+    "hoTen": "Pham Thi P",
+    "cpa": 3.7,
+    "canhCao": 0
+  },
+  {
+    "mssv": "20230117",
+    "hoTen": "Vu Van Q",
+    "cpa": 1,
+    "canhCao": 2
+  },
+  {
+    "mssv": "20230118",
+    "hoTen": "Hoang Thi R",
+    "cpa": 0.5,
+    "canhCao": 3
+  },
+  {
+    "mssv": "20230119",
+    "hoTen": "Nguyen Van S",
+    "cpa": 2.2,
+    "canhCao": 0
+  },
+  {
+    "mssv": "20230120",
+    "hoTen": "Tran Thi T",
+    "cpa": 3.1,
+    "canhCao": 0
+  },
+  {
+    "mssv": "20230121",
+    "hoTen": "Le Van U",
+    "cpa": 0.8,
+    "canhCao": 2
+  },
+  {
+    "mssv": "20230122",
+    "hoTen": "Pham Thi V",
+    "cpa": 1.3,
+    "canhCao": 1
+  },
+  {
+    "mssv": "20230123",
+    "hoTen": "Vu Van W",
+    "cpa": 2.6,
+    "canhCao": 0
+  },
+  {
+    "mssv": "20230124",
+    "hoTen": "Hoang Thi X",
+    "cpa": 3.8,
+    "canhCao": 0
+  },
+  {
+    "mssv": "20230125",
+    "hoTen": "Nguyen Van Y",
+    "cpa": 1.7,
+    "canhCao": 0
+  }
+]
