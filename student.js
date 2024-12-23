@@ -14,7 +14,7 @@ try {
 function list() {
     console.log("Danh sách sinh viên:");
     students.forEach((student) => {
-        console.log(`${student.mssv} - ${student.hoTen}`);
+        console.log(`${student.mssv} - ${student.name}`);
     });
 }
 
@@ -22,7 +22,7 @@ function list() {
 function find(mssv) {
     const student = students.find((s) => s.mssv === mssv);
     if (student) {
-        console.log(`Thông tin sinh viên: ${student.mssv} - ${student.hoTen} - CPA: ${student.cpa} - Cảnh cáo: ${student.canhCao}`);
+        console.log(`Thông tin sinh viên: ${student.mssv} - ${student.name} - CPA: ${student.cpa} - Cảnh cáo: ${student.canhcao}`);
     } else {
         console.log("Không tìm thấy sinh viên.");
     }
@@ -43,7 +43,7 @@ function modifyCPA(mssv, newCPA) {
 function findTop(n) {
     const sorted = [...students].sort((a, b) => b.cpa - a.cpa).slice(0, n);
     console.log(`Top ${n} sinh viên có CPA cao nhất:`);
-    sorted.forEach((student) => console.log(`${student.mssv} - ${student.hoTen} - CPA: ${student.cpa}`));
+    sorted.forEach((student) => console.log(`${student.mssv} - ${student.name} - CPA: ${student.cpa}`));
 }
 function listLastTwo() {
     console.log("2 sinh viên cuối trong danh sách:");
@@ -57,7 +57,7 @@ function listLastTwo() {
 function findBottom(n) {
     const sorted = [...students].sort((a, b) => a.cpa - b.cpa).slice(0, n);
     console.log(`Bottom ${n} sinh viên có CPA thấp nhất:`);
-    sorted.forEach((student) => console.log(`${student.mssv} - ${student.hoTen} - CPA: ${student.cpa}`));
+    sorted.forEach((student) => console.log(`${student.mssv} - ${student.name} - CPA: ${student.cpa}`));
 }
 function modifyFirstCPA(newCPA) {
     if (students.length > 0) {
@@ -92,18 +92,61 @@ function findLast() {
         console.log("Danh sách sinh viên trống.");
     }
 }
+
 // Hàm tìm sinh viên bị cảnh cáo
 function findCanhCao() {
     console.log("Danh sách sinh viên bị cảnh cáo:");
-    students.forEach((s) => {
-        if (s.cpa <= 0.5) s.canhCao = 3;
-        else if (s.cpa <= 1.0) s.canhCao = 2;
-        else if (s.cpa <= 1.5) s.canhCao = 1;
-        else s.canhCao = 0; // Không cảnh cáo
-        if (s.canhCao > 0) {
-            console.log(`${s.mssv} - ${s.hoTen} - CPA: ${s.cpa} - Mức cảnh cáo: ${s.canhCao}`);
+
+    let count = 0;  
+
+    // Lọc danh sách sinh viên bị cảnh cáo
+    for (let i = 0; i < students.length; i++) {
+        const s = students[i];
+
+        // Xác định mức cảnh cáo dựa trên CPA
+        if (s.cpa <= 0.5) s.canhcao = 3;
+        else if (s.cpa <= 1.0) s.canhcao = 2;
+        else if (s.cpa <= 1.5) s.canhcao = 1;
+        else s.canhcao = 0; 
+
+        if (s.canhcao > 0) {
+            console.log(`${s.mssv} - ${s.name} - CPA: ${s.cpa} - Mức cảnh cáo: ${s.canhcao}`);
+            count++; 
+
+            // Dừng khi đã in đủ 3 sinh viên
+            if (count === 3) break;
         }
-    });
+    }
+}
+
+//Hàm tìm số sinh viên có CPA trong khoảng 2.4 - 3.0
+function countInRange2_4_3_0() {
+    const count = students.filter(s => s.cpa >= 2.4 && s.cpa <= 3.0).length;
+    console.log(`Số sinh viên có CPA trong khoảng [2.4, 3.0] là: ${count}`);
+}
+
+//Hàm tìm số sinh viên bị đình chỉ
+function countDinhChi(currentYear) {
+    const count = students.filter((s) => {
+        const mssvStr = s.mssv.toString();
+        
+        if (mssvStr.length < 4) {
+            console.log(`MSSV không hợp lệ: ${s.mssv}`);  
+            return false;
+        }
+
+        const startYear = parseInt(mssvStr.substring(0, 4)); 
+        if (isNaN(startYear)) {
+            console.log(`Không thể lấy năm nhập học từ MSSV: ${s.mssv}`);
+            return false;
+        }
+
+        const studyYears = currentYear - startYear;
+
+        return studyYears > 5 && s.cpa <= 0.5;
+    }).length;
+
+    console.log(`Tổng số sinh viên bị đình chỉ học là: ${count}`);
 }
 
 // Hàm main: xử lý nhập từ terminal
@@ -142,6 +185,14 @@ function main() {
     
         case "canhcao":
             findCanhCao();
+            break;
+        
+            case "countInRange":
+            countInRange2_4_3_0();
+            break;
+
+            case "countDinhChi": 
+            countDinhChi(args[1]);
             break;
         default:
             console.log("Lệnh không hợp lệ. Các lệnh hỗ trợ:modifyfirst,findlast, listLastTwo, list, find, modify, findtop, findbottom, canhcao.");

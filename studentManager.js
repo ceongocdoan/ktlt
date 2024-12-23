@@ -1,11 +1,11 @@
 const fs = require('fs/promises');
 
 class Student {
-    constructor(mssv, hoTen, cpa, canhCao) {
+    constructor(mssv, name, cpa, canhcao) {
         this.mssv = mssv; // Mã số sinh viên
-        this.hoTen = hoTen; // Họ và tên
+        this.name = name; // Họ và tên
         this.cpa = cpa; // Điểm trung bình tích lũy (CPA)
-        this.canhCao = canhCao; // Mức cảnh cáo (1, 2, 3)
+        this.canhcao = canhcao; // Mức cảnh cáo (1, 2, 3)
     }
 }
 
@@ -19,7 +19,7 @@ class StudentManager {
         try {
             const data = await fs.readFile(filePath, 'utf8');
             this.students = JSON.parse(data).map(
-                (item) => new Student(item.mssv, item.hoTen, item.cpa, item.canhCao)
+                (item) => new Student(item.mssv, item.name, item.cpa, item.canhcao)
             );
             console.log('Dữ liệu đã được tải thành công!');
         } catch (err) {
@@ -40,7 +40,7 @@ class StudentManager {
     // Lệnh 1: list
     list() {
         this.students.forEach((student) => {
-            console.log(`${student.mssv} - ${student.hoTen}`);
+            console.log(`${student.mssv} - ${student.name}`);
         });
     }
 
@@ -48,7 +48,7 @@ class StudentManager {
     find(mssv) {
         const student = this.students.find((s) => s.mssv === mssv);
         if (student) {
-            console.log(`${student.mssv} "${student.hoTen}" ${student.cpa} ${student.canhCao}`);
+            console.log(`${student.mssv} "${student.name}" ${student.cpa} ${student.canhcao}`);
         } else {
             console.log('Không tìm thấy sinh viên.');
         }
@@ -79,13 +79,13 @@ class StudentManager {
     // Lệnh 6: find canhcao
     findCanhCao() {
         const result = this.students.filter((s) => {
-            if (s.cpa <= 0.5) s.canhCao = 3;
-            else if (s.cpa <= 1.0) s.canhCao = 2;
-            else if (s.cpa <= 1.5) s.canhCao = 1;
-            else s.canhCao = 0; // Không cảnh cáo
-            return s.canhCao > 0;
+            if (s.cpa <= 0.5) s.canhcao = 3;
+            else if (s.cpa <= 1.0) s.canhcao = 2;
+            else if (s.cpa <= 1.5) s.canhcao = 1;
+            else s.canhcao = 0; // Không cảnh cáo
+            return s.canhcao > 0;
         });
-        result.forEach((s) => console.log(`${s.mssv} ${s.hoTen} mức cảnh cáo ${s.canhCao}`));
+        result.forEach((s) => console.log(`${s.mssv} ${s.name} mức cảnh cáo ${s.canhcao}`));
     }
 
     // Lệnh 7: cnt a b
@@ -95,14 +95,26 @@ class StudentManager {
         return count;
     }
 
-    // Lệnh 8: Đếm số sinh viên bị đình chỉ học
+    // Lệnh 7: cnt 2.4 3.0
+    countInRange2_4_3_0() {
+        const count = this.students.filter((s) => s.cpa >= 2.4 && s.cpa <= 3.0).length;
+        console.log(`Số sinh viên có CPA trong khoảng [2.4, 3.0] là: ${count}`);
+        return count;
+    }
+
+    // Lệnh 8: đếm số sinh viên Đình chỉ
     countDinhChi(currentYear) {
         const count = this.students.filter((s) => {
-            const startYear = parseInt(s.mssv.substring(0, 4));
-            const studyYears = currentYear - startYear;
-            return studyYears > 5 && s.cpa <= 0.5; // Đình chỉ nếu học quá 5 năm và cpa <= 0.5
+            const mssvStr = s.mssv.toString();
+            
+            if (mssvStr.length < 4) return false;
+            const startYear = parseInt(mssvStr.substring(0, 4)); 
+            const studyYears = currentYear - startYear; 
+
+            return studyYears > 5 && s.cpa <= 0.5; 
         }).length;
-        console.log(`Số sinh viên bị đình chỉ học: ${count}`);
+
+        console.log(`Tổng số sinh viên bị đình chỉ học là: ${count}`);
         return count;
     }
 }
