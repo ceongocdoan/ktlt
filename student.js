@@ -45,6 +45,13 @@ function findTop(n) {
     console.log(`Top ${n} sinh viên có CPA cao nhất:`);
     sorted.forEach((student) => console.log(`${student.mssv} - ${student.hoTen} - CPA: ${student.cpa}`));
 }
+function listLastTwo() {
+    console.log("2 sinh viên cuối trong danh sách:");
+    const lastTwo = students.slice(-2); // Lấy 2 phần tử cuối cùng
+    lastTwo.forEach((student) => {
+        console.log(`${student.mssv} - ${student.name}`);
+    });
+}
 
 // Hàm tìm n sinh viên có CPA thấp nhất
 function findBottom(n) {
@@ -52,7 +59,39 @@ function findBottom(n) {
     console.log(`Bottom ${n} sinh viên có CPA thấp nhất:`);
     sorted.forEach((student) => console.log(`${student.mssv} - ${student.hoTen} - CPA: ${student.cpa}`));
 }
-
+function modifyFirstCPA(newCPA) {
+    if (students.length > 0) {
+        students[0].cpa = parseFloat(newCPA); // Cập nhật CPA cho sinh viên đầu tiên
+        console.log(`CPA của sinh viên đầu tiên (${students[0].mssv}) đã được cập nhật thành ${newCPA}.`);
+    } else {
+        console.log("Danh sách sinh viên trống, không thể cập nhật.");
+    }
+}
+function saveStudents() {
+    try {
+        fs.writeFileSync("students.json", JSON.stringify(students, null, 2), "utf-8");
+        console.log("Dữ liệu đã được lưu lại thành công.");
+    } catch (error) {
+        console.error("Lỗi khi lưu file students.json:", error.message);
+    }
+}
+function modifyFirstCPA(newCPA) {
+    if (students.length > 0) {
+        students[0].cpa = parseFloat(newCPA); // Cập nhật CPA cho sinh viên đầu tiên
+        console.log(`CPA của sinh viên đầu tiên (${students[0].mssv}) đã được cập nhật thành ${newCPA}.`);
+        saveStudents(); // Lưu thay đổi vào file JSON
+    } else {
+        console.log("Danh sách sinh viên trống, không thể cập nhật.");
+    }
+}
+function findLast() {
+    if (students.length > 0) {
+        const lastStudent = students[students.length - 1]; // Lấy phần tử cuối cùng
+        console.log(`Thông tin sinh viên cuối cùng: ${lastStudent.mssv} - ${lastStudent.name} - CPA: ${lastStudent.cpa} - Cảnh cáo: ${lastStudent.canhcao}`);
+    } else {
+        console.log("Danh sách sinh viên trống.");
+    }
+}
 // Hàm tìm sinh viên bị cảnh cáo
 function findCanhCao() {
     console.log("Danh sách sinh viên bị cảnh cáo:");
@@ -85,14 +124,27 @@ function main() {
         case "findtop":
             findTop(parseInt(args[1]));
             break;
+
+            case "modifyfirst":
+    modifyFirstCPA(args[1]); // Cập nhật CPA mới được truyền từ dòng lệnh
+    break;
+
         case "findbottom":
             findBottom(parseInt(args[1]));
             break;
+
+            case "listLastTwo":
+    listLastTwo(); // Gọi hàm in ra 2 sinh viên cuối
+    break;
+    case "findlast":
+        findLast(); // Gọi hàm tìm sinh viên cuối cùng
+        break;
+    
         case "canhcao":
             findCanhCao();
             break;
         default:
-            console.log("Lệnh không hợp lệ. Các lệnh hỗ trợ: list, find, modify, findtop, findbottom, canhcao.");
+            console.log("Lệnh không hợp lệ. Các lệnh hỗ trợ:modifyfirst,findlast, listLastTwo, list, find, modify, findtop, findbottom, canhcao.");
     }
 }
 
